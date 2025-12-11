@@ -1,0 +1,62 @@
+!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Happy Birthday, Kiddo!</title>
+  <style>
+    :root{--bg:#ffe4e1;--accent:#ff6b6b;--balloon1:#ff6b6b;--balloon2:#ffd166;--balloon3:#4ec5ff}
+    html,body{height:100%;margin:0;font-family:'Comic Sans MS', cursive, sans-serif;overflow:hidden;background:linear-gradient(to top,#ffe4e1,#fff0f5);color:#333}
+
+    /* Floating balloons */
+    .balloon{position:absolute;width:60px;height:80px;border-radius:50% 50% 45% 45%;animation:balloonUp 5s infinite ease-in-out;box-shadow:0 10px 25px rgba(0,0,0,0.2)}
+    @keyframes balloonUp{0%{transform:translateY(0)}50%{transform:translateY(-50px)}100%{transform:translateY(0)}}
+
+    .card{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(600px,90vw);background:rgba(255,255,255,0.8);backdrop-filter:blur(10px);border-radius:18px;padding:32px;box-shadow:0 12px 40px rgba(0,0,0,0.2);text-align:center;animation:fade 1s ease-out}
+    @keyframes fade{from{opacity:0;transform:translate(-50%,-48%)}to{opacity:1;transform:translate(-50%,-50%)}}
+
+    h1{font-size:40px;margin:0;color:#ff69b4;animation:textPop 1.2s ease-out}
+    @keyframes textPop{0%{opacity:0;transform:scale(0.6)}100%{opacity:1;transform:scale(1)}}
+
+    p{font-size:18px;opacity:0.9}
+
+    button{background:#ff69b4;border:none;padding:12px 18px;border-radius:12px;color:white;font-weight:600;font-size:16px;margin-top:14px;cursor:pointer;box-shadow:0 6px 15px rgba(255,105,180,0.3);animation:buttonIn 1.4s ease-out}
+    @keyframes buttonIn{0%{opacity:0;transform:translateY(18px)}100%{opacity:1;transform:translateY(0)}}
+
+    canvas.confetti{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
+  </style>
+</head>
+<body>
+
+  <!-- Balloons -->
+  <div class="balloon" style="left:10%;top:80%;background:var(--balloon1);animation-delay:0s"></div>
+  <div class="balloon" style="left:50%;top:85%;background:var(--balloon2);animation-delay:0.6s"></div>
+  <div class="balloon" style="left:80%;top:90%;background:var(--balloon3);animation-delay:1.2s"></div>
+
+  <div class="card" id="card">
+    <canvas class="confetti" id="confetti"></canvas>
+
+    <h1>🎈 Happy Birthday, Little Star! 🎈</h1>
+    <p>Wishing you a day full of fun, cake, and magical surprises! 🎂✨</p>
+
+    <button id="playBtn">Play Music & Confetti 🎵</button>
+    <audio id="music" src="123.mp3"></audio>
+  </div>
+
+  <script>
+    // Confetti
+    const c = document.getElementById('confetti');
+    const ctx = c.getContext('2d');
+    function size(){c.width=innerWidth;c.height=innerHeight;} size(); onresize=size;
+    const pieces=[]; const colors=['#ff6b6b','#ffd166','#06d6a0','#4ec5ff','#c084fc','#ffb6c1','#ff69b4'];
+    function confetti(){pieces.push({x:Math.random()*innerWidth,y:-10,vx:(Math.random()-0.5)*3,vy:Math.random()*6+2,size:8+Math.random()*8,color:colors[Math.floor(Math.random()*colors.length)],r:0,vr:(Math.random()-0.5)*0.2});}
+    setInterval(confetti,40);
+    function frame(){ctx.clearRect(0,0,innerWidth,innerHeight);pieces.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.fillStyle=p.color;ctx.fillRect(-p.size/2,-p.size/2,p.size,p.size*0.6);ctx.restore();});requestAnimationFrame(frame);} frame();
+
+    // Audio
+    const music=document.getElementById('music');
+    document.getElementById('playBtn').onclick=()=>{music.play().catch(()=>{});};
+  </script>
+
+</body>
+</html>
