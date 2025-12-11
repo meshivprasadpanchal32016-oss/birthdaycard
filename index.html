@@ -1,4 +1,4 @@
-!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -39,8 +39,8 @@
     <h1>🎈 Happy Birthday, Little Star! 🎈</h1>
     <p>Wishing you a day full of fun, cake, and magical surprises! 🎂✨</p>
 
-    <button id="playBtn">Play Music & Confetti 🎵</button>
-    <audio id="music" src="123.mp3"></audio>
+    
+    <audio id="music" src="music.mp3" autoplay loop></audio>
   </div>
 
   <script>
@@ -55,8 +55,12 @@
 
     // Audio
     const music=document.getElementById('music');
-    document.getElementById('playBtn').onclick=()=>{music.play().catch(()=>{});};
+    };
   </script>
 
 </body>
 </html>
+
+
+    
+   
